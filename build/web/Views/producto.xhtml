@@ -11,10 +11,12 @@
         <ui:composition template="./../Templates/template.xhtml">
 
             <ui:define name="content">
-              
+                <h1>Productos</h1>
+                <br/>
                 <h:form>
-                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" />
+                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
                 </h:form>
+                <br/>
 
                 <!-- NUEVO PRODUCTO -->
                 <p:dialog header="Nuevo producto" widgetVar="dialogCrear" id="dialogCrear" >
@@ -66,13 +68,14 @@
 
                         </h:panelGrid>
 
-                        <p:commandButton value="Crear" update="tabla_prod" 
+                        <p:commandButton value="Crear" update="tabla_prod dialogCrear" 
                                          actionListener="#{productoController.nuevoProducto()}" 
                                          icon="ui-icon-check" 
-                                         oncomplete="PF('dialogCrear').hide()"/> 
+                                         oncomplete="PF('dialogCrear').hide()"  /> 
                         
                     </h:form>
                 </p:dialog>
+                
                 
              
                 <p:dataTable id="tabla_prod" var="prod" value="#{productoController.listaProductos}">
@@ -100,6 +103,15 @@
                         <h:outputText value="#{prod.precio_venta - prod.precio}" />
                     </p:column>
                     
+                    <p:column headerText="Total invertido (Q.)">
+                        <h:outputText value="#{prod.precio * prod.cantidad}" />
+                    </p:column>
+                    
+                    <p:column headerText="Ganancia esperada (Q.)">
+                        <h:outputText value="#{ (prod.precio_venta * prod.cantidad) - (prod.precio * prod.cantidad)}" />
+                    </p:column>
+                    
+                    
                     <p:column headerText="Modificar">
                         <h:form> 
                                 <p:commandLink value="Modificar" 
@@ -108,24 +120,34 @@
                         </h:form>
                     </p:column>
                     
-                     <p:column headerText="Modificar">
+                    <p:column headerText="Desactivar">
                         <h:form> 
-                                <p:commandLink value="Eliminar" 
-                                               actionListener="#{productoController.eliminar(prod.id)}"  
+                                <p:commandLink value="Desactivar" 
+                                               actionListener="#{productoController.desactivar(prod.id)}"  
                                                update="tabla_prod" />
+                        </h:form>
+                    </p:column>
+                    
+                    
+                    <p:column headerText="Añadir unidades">
+                        <h:form> 
+                                <p:commandLink value="anadir" 
+                                               actionListener="#{productoController.leerIDProducto(prod.id)}"  
+                                               oncomplete="PF('dialogUnidades').show()" update="dialogUnidades" />
                         </h:form>
                     </p:column>
                     
                 </p:dataTable>
                 
                 <!-- MODIFICAR -->
-                <p:dialog header="Datos" widgetVar="dialogModificar" id="dialogModificar" >
+                <p:dialog header="Modificar" widgetVar="dialogModificar" id="dialogModificar" >
                      <h:form>
                     
 
-                        <p:messages id="msgs2" />
-
+                        
+                        <p:messages id="msgs2"  autoUpdate="true"/>
                         <h:panelGrid columns="3" cellpadding="8">                            
+                            
                             
                             <p:outputLabel for="nombre2" value="Nombre:" />
                             
@@ -172,8 +194,37 @@
 
                         </h:panelGrid>
 
-                        <p:commandButton value="Guardar" update="tabla_prod" 
+                        <p:commandButton value="Guardar" update="tabla_prod " 
                                          actionListener="#{productoController.modificar()}" 
+                                         icon="ui-icon-check" 
+                                         oncomplete="PF('dialogModificar').hide()"/>
+                    
+                </h:form>
+
+                </p:dialog>
+                
+                
+                 <!-- NUEVAS UNIDADES -->
+                <p:dialog header="Modificar" widgetVar="dialogUnidades" id="dialogUnidades" >
+                     <h:form>
+                    
+                        <p:messages id="msgs3"  autoUpdate="true"/>
+                        <h:panelGrid columns="3" cellpadding="8">                            
+                            
+                            <p:outputLabel for="cantidad2" value="Cantidad:" />
+
+                            <p:inputText id="cantidad2" value="#{productoController.producto.cantidad}" label="Cantidad2" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgCantidad2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="cantidad2" id="msgCantidad2" display="icon" />
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Guardar" update="tabla_prod " 
+                                         actionListener="#{productoController.nuevasUnidades()}" 
                                          icon="ui-icon-check" 
                                          oncomplete="PF('dialogModificar').hide()"/>
                     

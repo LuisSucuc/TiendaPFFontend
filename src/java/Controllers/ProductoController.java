@@ -66,9 +66,7 @@ public class ProductoController  implements Serializable{
         
     }
     
-    public Producto leerIDProducto(int id) {
-        System.out.println("GET ID");
-        System.out.println(id);
+    public Producto leerIDProducto(int id) {        
         try {
             this.producto = productoCAD.getProductoID(id);
         } catch (Exception ex) {
@@ -79,19 +77,28 @@ public class ProductoController  implements Serializable{
     }
     
     public void modificar() throws Exception{
-        
         productoCAD.modificar(producto);
         listar();
         
     }
     
-     public void eliminar(int id) {
-        productoCAD.eliminar(id);
+    
+    public void nuevasUnidades() throws Exception{
+        productoCAD.actualizarUnidades(producto);
+        listar();
+        
+    }
+    
+    public void desactivar(int id) {
+        productoCAD.desactivar(id);
         listar();
     }
     
-   
-     
+    
+    public void activar(int id) {
+        productoCAD.desactivar(id);
+        listar();
+    }
      
      
 }

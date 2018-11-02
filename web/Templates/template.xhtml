@@ -22,6 +22,9 @@
                 <p:growl id="messages"/>
 
                 <p:menubar>
+                    <p:menuitem value="Productos" url="/faces/Views/producto.xhtml" icon="ui-icon-star" />
+                    <p:menuitem value="Productos desactivados" url="/faces/Views/producto_inactivo.xhtml" icon="ui-icon-close" />
+                    
                     <p:submenu label="File" icon="ui-icon-document">
                         <p:submenu label="New" icon="ui-icon-contact">
                             <p:menuitem value="Project" url="#" />
@@ -57,12 +60,8 @@
                         </p:submenu>
                     </p:submenu>
 
-                    <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+                    <p:menuitem value="Quit" url="/faces/Views/producto.xhtml" icon="ui-icon-close" />
 
-                    <f:facet name="options">
-                        <p:inputText style="margin-right:10px" placeholder="Search"/>
-                        <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
-                    </f:facet>
                 </p:menubar>
             </h:form>
         </div>
