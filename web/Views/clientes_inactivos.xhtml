@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"   >
+
+    <body>
+
+        <ui:composition template="./../Templates/template.xhtml">
+
+            <ui:define name="content">
+                <h1>Clientes Inactivos</h1>
+                <br/>
+                
+
+            
+                
+             
+                <p:dataTable id="tabla_cliente" var="cliente" value="#{clientesInactivosController.listaClientes}">
+                    <p:column headerText="Identificador">
+                        <h:outputText value="COD-#{cliente.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Comercio">
+                        <h:outputText value="#{cliente.comercio}" />
+                    </p:column>
+                    
+                    <p:column headerText="Telefono disponible">
+                        <h:outputText value="#{cliente.telefono}" />
+                    </p:column>                 
+
+                    <p:column headerText="Direccion (Q.)">
+                        <h:outputText value="#{cliente.direccion}" />
+                    </p:column>
+                    
+                    
+                    <p:column headerText="Activar">
+                        <h:form> 
+                                <p:commandLink value="Activar" 
+                                               actionListener="#{clientesInactivosController.activar(cliente.id)}"  
+                                               update="tabla_cliente" />
+                        </h:form>
+                    </p:column>
+                        
+                </p:dataTable>
+                
+                
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

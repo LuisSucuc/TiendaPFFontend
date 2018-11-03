@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"   >
+
+    <body>
+
+        <ui:composition template="./../Templates/template.xhtml">
+
+            <ui:define name="content">
+                <h1>Clientes</h1>
+                <br/>
+                <h:form>
+                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                </h:form>
+                <br/>
+
+                <!-- NUEVO PRODUCTO -->
+                <p:dialog header="Nuevo cliente" widgetVar="dialogCrear" id="dialogCrear" >
+                    <h:form>
+
+                        <p:messages id="msgs" />
+
+                        <h:panelGrid columns="3" cellpadding="8">
+
+                            <p:outputLabel for="comercio" value="Comercio:" />
+                            <p:inputText id="comercio" value="#{clienteController.cliente.comercio}" required="true" label="Comercio">
+                                <f:validateLength minimum="10" />
+                                <p:ajax update="msgComercio" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="comercio"  id="msgComercio" display="icon" />
+
+
+
+                            <p:outputLabel for="telefono" value="Telefono:" />
+
+                            <p:inputText id="telefono" value="#{clienteController.cliente.telefono}" label="Telefono" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgTelefono" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="telefono" id="msgTelefono" display="icon" />
+
+
+
+                            <p:outputLabel for="direccion" value="Direccion:" />
+                            <p:inputText id="direccion" value="#{clienteController.cliente.direccion}" label="Direccion" required="true">
+                                <f:validateLength minimum="1" />
+                                <p:ajax update="msgDireccion" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="direccion" id="msgDireccion" display="icon" />
+
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Crear" update="tabla_cliente dialogCrear" 
+                                         actionListener="#{clienteController.nuevoCliente()}" 
+                                         icon="ui-icon-check" 
+                                         oncomplete="PF('dialogCrear').hide()"  /> 
+                        
+                    </h:form>
+                </p:dialog>
+                
+                
+             
+                <p:dataTable id="tabla_cliente" var="cliente" value="#{clienteController.listaClientes}">
+                    <p:column headerText="Identificador">
+                        <h:outputText value="COD-#{cliente.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Comercio">
+                        <h:outputText value="#{cliente.comercio}" />
+                    </p:column>
+                    
+                    <p:column headerText="Telefono disponible">
+                        <h:outputText value="#{cliente.telefono}" />
+                    </p:column>                 
+
+                    <p:column headerText="Direccion (Q.)">
+                        <h:outputText value="#{cliente.direccion}" />
+                    </p:column>
+                    
+                    
+                    
+                    <p:column headerText="Modificar">
+                        <h:form> 
+                                <p:commandLink value="Modificar" 
+                                               actionListener="#{clienteController.leerIDCliente(cliente.id)}"
+                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" />
+                        </h:form>
+                    </p:column>
+                    
+                    <p:column headerText="Desactivar">
+                        <h:form> 
+                                <p:commandLink value="Desactivar" 
+                                               actionListener="#{clienteController.desactivar(cliente.id)}"  
+                                               update="tabla_cliente" />
+                        </h:form>
+                    </p:column>
+                    
+                    
+
+                    
+                </p:dataTable>
+                
+                <!-- MODIFICAR -->
+                <p:dialog header="Modificar" widgetVar="dialogModificar" id="dialogModificar" >
+                     <h:form>
+                    
+
+                        
+                        <p:messages id="msgs2"  autoUpdate="true"/>
+                        <h:panelGrid columns="3" cellpadding="8">                            
+                            
+                            
+                            <p:outputLabel for="comercio2" value="Comercio:" />
+                            
+                            <p:inputText id="comercio2" value="#{clienteController.cliente.comercio}" required="true" label="Comercio2">
+                                <f:validateLength minimum="10" />
+                                <p:ajax update="msgComercio2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="comercio2"  id="msgComercio2" display="icon" />
+
+
+
+                            <p:outputLabel for="telefono2" value="Telefono:" />
+
+                            <p:inputText id="telefono2" value="#{clienteController.cliente.telefono}" label="Telefono2" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgTelefono2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="telefono2" id="msgTelefono2" display="icon" />
+
+
+
+                            <p:outputLabel for="direccion2" value="Direccion:" />
+                            <p:inputText id="direccion2" value="#{clienteController.cliente.direccion}" label="Direccion2" required="true">
+                                <f:validateLength minimum="1" />
+                                <p:ajax update="msgDireccion2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="direccion2" id="msgDireccion2" display="icon" />
+
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Guardar" update="tabla_cliente " 
+                                         actionListener="#{clienteController.modificar()}" 
+                                         icon="ui-icon-check" 
+                                         oncomplete="PF('dialogModificar').hide()"/>
+                    
+                </h:form>
+
+                </p:dialog>
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

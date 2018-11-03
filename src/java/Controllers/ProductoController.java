@@ -24,7 +24,15 @@ public class ProductoController  implements Serializable{
     
     
     
-    
+    private int nuevaCantidad = 0;
+
+    public void setNuevaCantidad(int nuevaCantidad) {
+        this.nuevaCantidad = nuevaCantidad;
+    }
+
+    public int getNuevaCantidad() {
+        return nuevaCantidad;
+    }
     private List<Producto> listaProductos;
     ProductoCAD productoCAD =  new ProductoCAD();
     
@@ -84,7 +92,11 @@ public class ProductoController  implements Serializable{
     
     
     public void nuevasUnidades() throws Exception{
-        productoCAD.actualizarUnidades(producto);
+        System.out.println("NUEVA CANTIDAD");
+        System.out.println(nuevaCantidad);
+        productoCAD.actualizarUnidades(producto.getId(), nuevaCantidad);
+        nuevaCantidad = 0;
+        System.out.println(nuevaCantidad);
         listar();
         
     }

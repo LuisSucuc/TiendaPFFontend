@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"   >
+
+    <body>
+
+        <ui:composition template="./../Templates/template.xhtml">
+
+            <ui:define name="content">
+                <h1>Productos</h1>
+                <br/>
+                <h:form>
+                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                </h:form>
+                <br/>
+
+                <!-- NUEVO PRODUCTO -->
+                <p:dialog header="Nuevo producto" widgetVar="dialogCrear" id="dialogCrear" >
+                    <h:form>
+
+                        <p:messages id="msgs" />
+
+                        <h:panelGrid columns="3" cellpadding="8">
+
+                            <p:outputLabel for="nombre" value="Nombre:" />
+                            <p:inputText id="nombre" value="#{productoController.producto.nombre}" required="true" label="Nombre">
+                                <f:validateLength minimum="10" />
+                                <p:ajax update="msgNombre" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="nombre"  id="msgNombre" display="icon" />
+
+
+
+                            <p:outputLabel for="cantidad" value="Cantidad:" />
+
+                            <p:inputText id="cantidad" value="#{productoController.producto.cantidad}" label="Cantidad" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgCantidad" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="cantidad" id="msgCantidad" display="icon" />
+
+
+
+                            <p:outputLabel for="precio" value="Precio:" />
+                            <p:inputText id="precio" value="#{productoController.producto.precio}" label="Precio" required="true">
+                                <f:validateLength minimum="1" />
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgPrecio" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="precio" id="msgPrecio" display="icon" />
+
+
+
+                            <p:outputLabel for="precioVenta" value="Precio Venta:" />
+                            <p:inputText id="precioVenta" value="#{productoController.producto.precio_venta}" label="PrecioVenta" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgPrecioVenta" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="precioVenta" id="msgPrecioVenta" display="icon" />
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Crear" update="tabla_prod dialogCrear" 
+                                         actionListener="#{productoController.nuevoProducto()}" 
+                                         icon="ui-icon-check" 
+                                         oncomplete="PF('dialogCrear').hide()"  /> 
+                        
+                    </h:form>
+                </p:dialog>
+                
+                
+             
+                <p:dataTable id="tabla_prod" var="prod" value="#{productoController.listaProductos}">
+                    <p:column headerText="Identificador">
+                        <h:outputText value="COD-#{prod.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{prod.nombre}" />
+                    </p:column>
+                    
+                    <p:column headerText="Cantidad disponible">
+                        <h:outputText value="#{prod.cantidad}" />
+                    </p:column>                 
+
+                    <p:column headerText="Precio (Q.)">
+                        <h:outputText value="#{prod.precio}" />
+                    </p:column>
+                    
+                    <p:column headerText="Precio de venta (Q.)">
+                        <h:outputText value="#{prod.precio_venta}" />
+                    </p:column>
+                    
+                    <p:column headerText="Ganancia producto (Q.)">
+                        <h:outputText value="#{prod.precio_venta - prod.precio}" />
+                    </p:column>
+                    
+                    <p:column headerText="Total invertido (Q.)">
+                        <h:outputText value="#{prod.precio * prod.cantidad}" />
+                    </p:column>
+                    
+                    <p:column headerText="Ganancia esperada (Q.)">
+                        <h:outputText value="#{ (prod.precio_venta * prod.cantidad) - (prod.precio * prod.cantidad)}" />
+                    </p:column>
+                    
+                    
+                    <p:column headerText="Modificar">
+                        <h:form> 
+                                <p:commandLink value="Modificar" 
+                                               actionListener="#{productoController.leerIDProducto(prod.id)}"
+                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" />
+                        </h:form>
+                    </p:column>
+                    
+                    <p:column headerText="Desactivar">
+                        <h:form> 
+                                <p:commandLink value="Desactivar" 
+                                               actionListener="#{productoController.desactivar(prod.id)}"  
+                                               update="tabla_prod" />
+                        </h:form>
+                    </p:column>
+                    
+                    
+                    <p:column headerText="Añadir unidades">
+                        <h:form> 
+                                <p:commandLink value="Anadir" 
+                                               actionListener="#{productoController.leerIDProducto(prod.id)}"  
+                                               oncomplete="PF('dialogUnidades').show()" update="dialogUnidades" />
+                        </h:form>
+                    </p:column>
+                    
+                </p:dataTable>
+                
+                <!-- MODIFICAR -->
+                <p:dialog header="Modificar" widgetVar="dialogModificar" id="dialogModificar" >
+                     <h:form>
+                    
+
+                        
+                        <p:messages id="msgs2"  autoUpdate="true"/>
+                        <h:panelGrid columns="3" cellpadding="8">                            
+                            
+                            
+                            <p:outputLabel for="nombre2" value="Nombre:" />
+                            
+                            <p:inputText id="nombre2" value="#{productoController.producto.nombre}" required="true" label="Nombre2">
+                                <f:validateLength minimum="10" />
+                                <p:ajax update="msgNombre2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="nombre2"  id="msgNombre2" display="icon" />
+
+
+
+                            <p:outputLabel for="cantidad2" value="Cantidad:" />
+
+                            <p:inputText id="cantidad2" value="#{productoController.producto.cantidad}" label="Cantidad2" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgCantidad2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="cantidad2" id="msgCantidad2" display="icon" />
+
+
+
+                            <p:outputLabel for="precio2" value="Precio:" />
+                            <p:inputText id="precio2" value="#{productoController.producto.precio}" label="Precio2" required="true">
+                                <f:validateLength minimum="1" />
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgPrecio2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="precio2" id="msgPrecio2" display="icon" />
+
+
+
+                            <p:outputLabel for="precioVenta2" value="Precio Venta:" />
+                            <p:inputText id="precioVenta2" value="#{productoController.producto.precio_venta}" label="PrecioVenta2" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgPrecioVenta2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="precioVenta2" id="msgPrecioVenta2" display="icon" />
+
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Guardar" update="tabla_prod " 
+                                         actionListener="#{productoController.modificar()}" 
+                                         icon="ui-icon-check" 
+                                         oncomplete="PF('dialogModificar').hide()"/>
+                    
+                </h:form>
+
+                </p:dialog>
+                
+                
+                 <!-- NUEVAS UNIDADES -->
+                <p:dialog header="Añadir unidades" widgetVar="dialogUnidades" id="dialogUnidades" >
+                     <h:form>
+                    
+                        <p:messages id="msgs3"  autoUpdate="true"/>
+                        <h:panelGrid columns="3" cellpadding="8">                            
+                            
+                            <p:outputLabel for="cantidad2" value="Cantidad:" />
+
+                            <p:inputText id="cantidad2" value="#{productoController.nuevaCantidad}" label="Cantidad2" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgCantidad2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="cantidad2" id="msgCantidad2" display="icon" />
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Guardar" update="tabla_prod" 
+                                         actionListener="#{productoController.nuevasUnidades()}" 
+                                         icon="ui-icon-check" 
+                                         oncomplete="PF('dialogUnidades').hide()"/>
+                    
+                </h:form>
+
+                </p:dialog>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

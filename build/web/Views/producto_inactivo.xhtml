@@ -18,7 +18,7 @@
              
                 <p:dataTable id="tabla_prod" var="prod" value="#{productoInactivoController.listaProductos}">
                     <p:column headerText="Identificador">
-                        <h:outputText value="#{prod.id}" />
+                        <h:outputText value="COD-#{prod.id}" />
                     </p:column>
                     
                     <p:column headerText="Nombre">
