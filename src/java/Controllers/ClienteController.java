@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controllers;
 
 import CAD.ClienteCAD;
@@ -13,26 +9,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-/**
- *
- * @author luis
- */
 
 @ManagedBean(name="clienteController")
 @ViewScoped
 public class ClienteController  implements Serializable{
     
     
-    
-    private int nuevaCantidad = 0;
-
-    public void setNuevaCantidad(int nuevaCantidad) {
-        this.nuevaCantidad = nuevaCantidad;
-    }
-
-    public int getNuevaCantidad() {
-        return nuevaCantidad;
-    }
+  
     private List<Cliente> listaClientes;
     ClienteCAD clienteCAD =  new ClienteCAD();
     
