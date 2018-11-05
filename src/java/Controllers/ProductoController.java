@@ -12,6 +12,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 /**
  *
@@ -19,6 +21,7 @@ import javax.faces.bean.ViewScoped;
  */
 
 @ManagedBean(name="productoController")
+///@Named(value = "orden")
 @ViewScoped
 public class ProductoController  implements Serializable{
     

@@ -11,11 +11,65 @@
         <ui:composition template="./../Templates/template.xhtml">
 
             <ui:define name="content">
+                
+                
                 <h1>Ordenes</h1>
                 <br/>
-               
+                <h:form>
+                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                </h:form>
                 <br/>
                 
+                
+                 <!-- NUEVO PRODUCTO -->
+                <p:dialog header="Nuevo orden" widgetVar="dialogCrear" id="dialogCrear" >
+                    <h:form>
+
+                        <p:messages id="msgs" />
+
+                        <h:panelGrid columns="3" cellpadding="8">
+                            
+                            <p:outputLabel for="new_client" value="Cliente:" />
+                            <p:selectOneMenu id="new_client" value="#{ordenController.new_client}" effect="fold" required="true">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{ordenController.news_clients}"  />
+                                <p:ajax update="msgCliente" event="keyup" />
+                            </p:selectOneMenu>
+                            
+                            <p:message for="new_client"  id="msgCliente" display="icon" />
+                            
+                            
+
+
+                            <p:outputLabel for="fecha" value="Fecha:" />
+                            <p:calendar id="fecha" value="#{ordenController.date}" label="Fecha" 
+                                        required="true" pattern="yyyy/MM/dd HH:mm" mask="true" >
+                                <p:ajax update="msgFecha" event="keyup" />
+                                <f:convertDateTime pattern="yyyy/MM/dd HH:mm"/>
+                            </p:calendar>
+
+                            <p:message for="fecha" id="msgFecha" display="icon" />
+
+
+
+                            <p:outputLabel for="descripcion" value="Descripcion:" />
+                            <p:inputText id="descripcion" value="#{ordenController.orden.descripcion}" label="Descripcion" required="true">
+                                <f:validateLength minimum="1" />
+                                <p:ajax update="msgDescripcion" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="descripcion" id="msgDescripcion" display="icon" />
+
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Crear" update="tabla_orden dialogCrear" 
+                                         actionListener="#{ordenController.nuevoOrden()}" 
+                                         icon="ui-icon-check"/> 
+                        
+                    </h:form>
+                </p:dialog>
              
                 <p:dataTable id="tabla_orden" var="orden" value="#{ordenController.listaOrdenes}">
                     <p:column headerText="Identificador">
@@ -27,10 +81,10 @@
                     </p:column>
                     
                     <p:column headerText="Fecha">
-                        <h:outputText value="#{orden.fecha.dia} - #{orden.fecha.mes} - #{orden.fecha.anio}" />
-                    </p:column>                 
+                        <h:outputText value="#{orden.fecha}" />
+                    </p:column>         
 
-                    <p:column headerText="Direccion (Q.)">
+                    <p:column headerText="Descripcion (Q.)">
                         <h:outputText value="#{orden.descripcion}" />
                     </p:column>
                     
@@ -39,7 +93,8 @@
                     
                     <p:column headerText="Detalles">
                         <h:form> 
-                                <p:commandLink value="Detalles"/>
+                                <p:commandLink value="Detalles"
+                                               actionListener="#{ordenController.redirect(orden)}"/>
                         </h:form>
                     </p:column>
                     
