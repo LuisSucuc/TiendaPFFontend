@@ -11,73 +11,18 @@
         <ui:composition template="./../Templates/template.xhtml">
 
             <ui:define name="content">
-                <h1>Ordenes</h1>
+                <h1>Ordenes #{ordenProductoController.orden.id}</h1>
                 <br/>
                
                 <br/>
+                    
+                
                 
                 <h:form>
                     <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
                 </h:form>
                 <br/>
 
-                <!-- NUEVO PRODUCTO -->
-                <p:dialog header="Nuevo orden" widgetVar="dialogCrear" id="dialogCrear" >
-                    <h:form>
-
-                        <p:messages id="msgs" />
-
-                        <h:panelGrid columns="3" cellpadding="8">
-
-                            <p:outputLabel for="id" value="ID:" />
-                            <p:inputText id="id" value="#{ordenController.orden.id}" required="true" label="ID">
-                                <f:validateLength minimum="10" />
-                                <p:ajax update="msgID" event="keyup" />
-                            </p:inputText>
-
-                            <p:message for="id"  id="msgID" display="icon" />
-
-
-
-                            <p:outputLabel for="cliente" value="Cliente:" />
-
-                            <p:inputText id="cliente" value="#{ordenController.orden.cliente}" label="Cliente" required="true">
-                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
-                                <p:ajax update="msgCliente" event="keyup" />
-                            </p:inputText>
-
-                            <p:message for="cliente" id="msgCliente" display="icon" />
-
-
-
-                            <p:outputLabel for="fecha" value="Fecha:" />
-                            <p:inputText id="fecha" value="#{ordenController.orden.fecha}" label="Fecha" required="true">
-                                <f:validateLength minimum="1" />
-                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
-                                <p:ajax update="msgFecha" event="keyup" />
-                            </p:inputText>
-
-                            <p:message for="fecha" id="msgFecha" display="icon" />
-
-
-
-                            <p:outputLabel for="descripcion" value="Descripcion:" />
-                            <p:inputText id="descripcion" value="#{ordenController.orden.fecha}" label="Descripcion" required="true">
-                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
-                                <p:ajax update="msgDescripcion" event="keyup" />
-                            </p:inputText>
-
-                            <p:message for="descripcion" id="msgDescripcion" display="icon" />
-
-                        </h:panelGrid>
-
-                        <p:commandButton value="Crear" update="dialogCrear" 
-                                         actionListener="#{ordenController.nuevoOrden()}" 
-                                         icon="ui-icon-check" 
-                                         oncomplete="PF('dialogCrear').hide()"  /> 
-                        
-                    </h:form>
-                </p:dialog>
                 
                 
             </ui:define>

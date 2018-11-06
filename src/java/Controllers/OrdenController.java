@@ -7,43 +7,41 @@ import DTO.Orden;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
-
-@Named(value = "ordenController")
-@SessionScoped
+@ManagedBean(name="ordenController")
+@ViewScoped
 public class OrdenController  implements Serializable{    
    
     private List<Orden> listaOrdenes;
     OrdenCAD ordenCAD =  new OrdenCAD();
     ClienteCAD clienteCAD = new ClienteCAD();
-    private Date date; 
+    private Date nuevaFecha; 
+    private int nuevoCliente;
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setNuevaFecha(Date nuevaFecha) {
+        this.nuevaFecha = nuevaFecha;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getNuevaFecha() {
+        return nuevaFecha;
     }
     
     
-    private String new_client;
-    private Map<String,String> news_clients = new HashMap<String, String>();
+    
+    private Map<String,String> opcionesClientes = new HashMap<String, String>();
     
     @PostConstruct
     public void init(){
         try {
-            news_clients = clienteCAD.getClientesSeleccionables();
+            opcionesClientes = clienteCAD.getClientesSeleccionables();
             this.listaOrdenes = ordenCAD.getTodos();
         } catch (Exception ex) {
             System.out.println("Error al obtener ordenes");
@@ -55,20 +53,20 @@ public class OrdenController  implements Serializable{
         return listaOrdenes;
     }
 
-    public void setNew_client(String new_client) {
-        this.new_client = new_client;
+    public void setNuevoCliente(int nuevoCliente) {
+        this.nuevoCliente = nuevoCliente;
     }
 
-    public void setNews_clients(Map<String, String> news_clients) {
-        this.news_clients = news_clients;
+    public void setOpcionesClientes(Map<String, String> opcionesClientes) {
+        this.opcionesClientes = opcionesClientes;
     }
 
-    public String getNew_client() {
-        return new_client;
+    public int getNuevoCliente() {
+        return nuevoCliente;
     }
 
-    public Map<String, String> getNews_clients() {
-        return news_clients;
+    public Map<String, String> getOpcionesClientes() {
+        return opcionesClientes;
     }
     
     public void listar(){
@@ -91,25 +89,20 @@ public class OrdenController  implements Serializable{
     
   
     public void nuevoOrden() throws Exception{
-        System.out.println(new_client);        
-        System.out.println(orden.cliente);
-        System.out.println(orden.cliente_id);
-        System.out.println(orden.fecha);
-        System.out.println(orden.descripcion);
-        System.out.println(orden.id);
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        String reportDate = df.format(date);
-        System.out.println("Report Date: " + reportDate);
-
-        //ordenCAD.insertar(orden);
+        orden.clienteId = nuevoCliente;      
+        orden.fecha = nuevaFecha;
+        ordenCAD.insertar(orden);
         
         listar();
         
     }
     
-    public Orden leerIDOrden(int id) {        
+    public Orden leerIDOrden(int id) {
         try {
             this.orden = ordenCAD.getOrdenID(id);
+            this.nuevoCliente = Integer.parseInt(this.orden.cliente);
+            this.nuevaFecha = this.orden.fecha;
+            
         } catch (Exception ex) {
             System.out.println("Error al obtener orden por ID");
         }
@@ -118,6 +111,10 @@ public class OrdenController  implements Serializable{
     }
     
     public void modificar() throws Exception{
+        
+        orden.cliente = Integer.toString(this.nuevoCliente);
+        
+        orden.fecha = this.nuevaFecha;
         ordenCAD.modificar(orden);
         listar();
         
@@ -136,9 +133,9 @@ public class OrdenController  implements Serializable{
     }
    
      public void redirect(Orden orden) throws IOException {
-        this.orden = orden;
-         System.out.println(this.orden.getCliente());
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ordenController",orden);
+        ControlID.ordenId = orden.id;
+         
+        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ordenController",orden);
         FacesContext.getCurrentInstance().getExternalContext().redirect("ver_orden.xhtml");
         //return "View/clientes";
     }
