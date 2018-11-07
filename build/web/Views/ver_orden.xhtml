@@ -14,7 +14,7 @@
                 <h1>Detalle de orden</h1>
                 <br/>
                 <h:form>
-                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  rendered="#{productoAsignadoController.autorizarEdit()}" />
                 </h:form>
                 <br/>
                 
@@ -97,8 +97,8 @@
                         <h:outputText value="#{productoAsignado.cantidad * productoAsignado.precio}" />
                     </p:column>
                     
-
-                   <p:column headerText="Modificar">
+                   
+                    <p:column headerText="Modificar" rendered="#{productoAsignadoController.autorizarEdit()}" >
                         <h:form>
                                 <p:commandLink value="Modificar" 
                                                actionListener="#{productoAsignadoController.leerIDProductoAsignado(productoAsignado.id)}"
@@ -107,14 +107,17 @@
                     </p:column>
 
                  
-                    <p:column headerText="Eliminar">
+                    <p:column headerText="Eliminar" rendered="#{productoAsignadoController.autorizarEdit()}" >
                         <h:form> 
                                 <p:commandLink value="Eliminar" 
                                                actionListener="#{productoAsignadoController.desactivar(productoAsignado)}"  
                                                update="tabla_productoAsignado" />
                         </h:form>
                     </p:column>
-
+                    
+                    <f:facet name="footer">
+                            TOTAL: Q.#{productoAsignadoController.total}
+                        </f:facet>
                     
                 </p:dataTable>
                 

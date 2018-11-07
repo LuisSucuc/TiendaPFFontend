@@ -25,13 +25,18 @@ public class ProductoAsignadoController  implements Serializable{
     ProductoCAD productoCAD = new ProductoCAD();
     private int limiteModificar = 0;
     private int nuevaCantidad = 0;
-    private int total = 0;
+    private float total = 0;
 
     
     @PostConstruct
     public void init(){
         try {
             this.listaProductoAsignados = productoAsignadoCAD.getTodos(ControlID.ordenId);
+            this.total = 0;
+            for(ProductoAsignado asignado: this.listaProductoAsignados){
+                
+                sumarTotal(asignado.cantidad * asignado.precio);
+            }
             opcionesProductos = productoCAD.getProductosSeleccionables();
         } catch (Exception ex) {
             System.out.println("Error al obtener productoAsignados");
@@ -45,6 +50,10 @@ public class ProductoAsignadoController  implements Serializable{
     public void listar(){
         try {
             this.listaProductoAsignados = productoAsignadoCAD.getTodos(ControlID.ordenId);
+            this.total = 0;
+            for(ProductoAsignado asignado: this.listaProductoAsignados){
+                sumarTotal(asignado.cantidad * asignado.precio);
+            }
         } catch (Exception ex) {
             System.out.println("Error al obtener productoAsignados (LISTAR)");
         }
@@ -75,7 +84,18 @@ public class ProductoAsignadoController  implements Serializable{
     public void setNuevaCantidad(int nuevaCantidad) {
         this.nuevaCantidad = nuevaCantidad;
     }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
     
+    public void sumarTotal(float subtotal){
+        this.total = this.total + subtotal;
+    }
   
     public void nuevoProductoAsignado() throws Exception{
         
@@ -136,6 +156,9 @@ public class ProductoAsignadoController  implements Serializable{
         listar();
     }
     
+    public boolean autorizarEdit(){
+        return ControlID.edit;
+    }
      
      
 }

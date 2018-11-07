@@ -131,9 +131,11 @@ public class OrdenController  implements Serializable{
         listar();
     }
    
-     public void redirect(Orden orden) throws IOException {
+     public void redirect(Orden orden, boolean autorizar) throws IOException {
         ControlID.ordenId = orden.id;
-         
+        ControlID.edit = autorizar;
+        
+            
         //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ordenController",orden);
         FacesContext.getCurrentInstance().getExternalContext().redirect("ver_orden.xhtml");
         //return "View/clientes";
