@@ -23,6 +23,9 @@ public class ProductoAsignadoController  implements Serializable{
     ProductoAsignadoCAD productoAsignadoCAD =  new ProductoAsignadoCAD();
     private Map<String,String> opcionesProductos = new HashMap<String, String>();
     ProductoCAD productoCAD = new ProductoCAD();
+    private int limiteModificar = 0;
+    private int nuevaCantidad = 0;
+    private int total = 0;
 
     
     @PostConstruct
@@ -55,6 +58,22 @@ public class ProductoAsignadoController  implements Serializable{
 
     public void setProductoAsignado(ProductoAsignado productoAsignado) {
         this.productoAsignado = productoAsignado;
+    }
+
+    public int getLimiteModificar() {
+        return limiteModificar;
+    }
+
+    public void setLimiteModificar(int limiteModificar) {
+        this.limiteModificar = limiteModificar;
+    }
+
+    public int getNuevaCantidad() {
+        return nuevaCantidad;
+    }
+
+    public void setNuevaCantidad(int nuevaCantidad) {
+        this.nuevaCantidad = nuevaCantidad;
     }
     
   
@@ -93,11 +112,13 @@ public class ProductoAsignadoController  implements Serializable{
         } catch (Exception ex) {
             System.out.println("Error al obtener productoAsignado por ID");
         }
-     
+        limiteModificar = productoAsignado.limite+ productoAsignado.cantidad;
+        nuevaCantidad = productoAsignado.cantidad;
         return this.productoAsignado;
     }
     
     public void modificar() throws Exception{
+        productoAsignado.cantidad = nuevaCantidad - productoAsignado.cantidad;
         productoAsignadoCAD.modificar(productoAsignado);
         listar();
         

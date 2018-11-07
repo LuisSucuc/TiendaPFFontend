@@ -98,7 +98,14 @@
                     </p:column>
                     
 
-                   
+                   <p:column headerText="Modificar">
+                        <h:form>
+                                <p:commandLink value="Modificar" 
+                                               actionListener="#{productoAsignadoController.leerIDProductoAsignado(productoAsignado.id)}"
+                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" />
+                        </h:form>
+                    </p:column>
+
                  
                     <p:column headerText="Eliminar">
                         <h:form> 
@@ -112,7 +119,33 @@
                 </p:dataTable>
                 
              
-                
+                   <p:dialog header="Modificar cantidad" widgetVar="dialogModificar" id="dialogModificar"  modal="true" showEffect="fold">
+                    <h:form>
+                        <p:growl id="growl2" showDetail="true" sticky="true" />  
+                        <p:messages id="msgs2" />
+
+                        <h:panelGrid columns="3" cellpadding="8">
+                            
+
+                            <p:outputLabel for="cantidad2" value="Cantidad:" />
+                            <p:inputText id="cantidad2" value="#{productoAsignadoController.nuevaCantidad}" label="Cantidad" required="true">
+                                <f:validateDoubleRange  minimum="1" maximum="#{productoAsignadoController.limiteModificar}" />
+                                <p:ajax update="msgCantidad2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="cantidad2" id="msgCantidad2" display="icon" />
+
+                              <p:commandButton value="Modificar" update="tabla_productoAsignado growl2" 
+                                         actionListener="#{productoAsignadoController.modificar() }"
+                                         oncomplete="PF('dialogModificar').hide()"
+                                         icon="ui-icon-check"/> 
+
+                        </h:panelGrid>
+
+                      
+                        
+                    </h:form>
+                </p:dialog>
                 
             </ui:define>
 
