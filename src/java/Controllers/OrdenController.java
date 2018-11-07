@@ -130,6 +130,12 @@ public class OrdenController  implements Serializable{
         ordenCAD.desactivar(id);
         listar();
     }
+    
+    
+     public void eliminar(int id) {
+        ordenCAD.eliminar(id);
+        listar();
+    }
    
      public void redirect(Orden orden, boolean autorizar) throws IOException {
         ControlID.ordenId = orden.id;

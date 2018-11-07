@@ -48,6 +48,14 @@
                         </h:form>
                     </p:column>
                     
+                    <p:column headerText="Eliminar">
+                        <h:form> 
+                                <p:commandLink value="Eliminar" 
+                                               actionListener="#{ordenController.eliminar(orden.id)}"  
+                                               update="tabla_orden" />
+                        </h:form>
+                    </p:column>
+                    
                     
 
                     

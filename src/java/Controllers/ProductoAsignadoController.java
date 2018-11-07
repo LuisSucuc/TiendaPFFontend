@@ -37,7 +37,7 @@ public class ProductoAsignadoController  implements Serializable{
                 
                 sumarTotal(asignado.cantidad * asignado.precio);
             }
-            opcionesProductos = productoCAD.getProductosSeleccionables();
+            opcionesProductos = productoCAD.getProductosSeleccionables(ControlID.ordenId);
         } catch (Exception ex) {
             System.out.println("Error al obtener productoAsignados");
         }
