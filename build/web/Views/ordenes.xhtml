@@ -108,6 +108,14 @@
                         </h:form>
                     </p:column>
                     
+                    <p:column headerText="Completar">
+                        <h:form> 
+                                <p:commandLink value="Orden Completada" 
+                                               actionListener="#{ordenController.desactivar(orden.id)}"  
+                                               update="tabla_orden" />
+                        </h:form>
+                    </p:column>
+                    
                     
 
                     

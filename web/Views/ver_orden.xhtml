@@ -11,18 +11,107 @@
         <ui:composition template="./../Templates/template.xhtml">
 
             <ui:define name="content">
-                <h1>Ordenes #{ordenProductoController.orden.id}</h1>
+                <h1>Detalle de orden</h1>
                 <br/>
-               
-                <br/>
-                    
-                
-                
                 <h:form>
                     <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
                 </h:form>
                 <br/>
+                
+                <!-- NUEVO PRODUCTO -->
+                <p:dialog header="Asignar producto" widgetVar="dialogCrear" id="dialogCrear"  modal="true" showEffect="fold">
+                    <h:form>
+                        <p:growl id="growl" showDetail="true" sticky="true" />  
+                        <p:messages id="msgs" />
 
+                        <h:panelGrid columns="3" cellpadding="8">
+                            
+                            <p:outputLabel for="producto" value="Producto:" />
+                            <p:selectOneMenu id="producto" value="#{productoAsignadoController.productoAsignado.productoId}" effect="fold" required="true">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{productoAsignadoController.opcionesProductos}"  />
+                            </p:selectOneMenu>
+                            
+                            <p:message for="producto"  id="msgProducto" display="icon" />                     
+
+
+                            <p:outputLabel for="cantidad" value="Cantidad:" />
+                            <p:inputText id="cantidad" value="#{productoAsignadoController.productoAsignado.cantidad}" label="Cantidad" required="true">
+                                <f:validateLength minimum="1" />
+                                <p:ajax update="msgCantidad" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="cantidad" id="msgCantidad" display="icon" />
+
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Crear" update="tabla_productoAsignado dialogCrear growl" 
+                                         actionListener="#{productoAsignadoController.nuevoProductoAsignado() }" 
+                                         onsuccess="PF('dialogCrear').hide()" 
+                                         icon="ui-icon-check"/> 
+                        
+                    </h:form>
+                </p:dialog>
+             
+                 
+            <table>
+              <tr>
+                <th>Cliente</th>
+                <th></th>
+                <th>Fecha</th>
+                <th></th>
+                <th>Descripción</th>
+              </tr>
+              <tr>
+                <td>#{ordenProductoController.cliente}</td>
+                <td></td>
+                <td>#{ordenProductoController.fecha}</td>
+                <td></td>
+                <td>#{ordenProductoController.descripcion}</td>
+              </tr>
+            </table>
+                
+               
+             
+             
+             
+                <p:dataTable id="tabla_productoAsignado" var="productoAsignado" value="#{productoAsignadoController.listaProductoAsignados}">
+                    
+                    <p:column headerText="Producto">
+                        <h:outputText value="#{productoAsignado.producto}" />
+                    </p:column>
+                    
+                    <p:column headerText="Cantidad">
+                        <h:outputText value="#{productoAsignado.cantidad}">
+                        </h:outputText>
+                    </p:column>         
+
+                    <p:column headerText="Precio (Q.)">
+                        <h:outputText value="#{productoAsignado.precio}" />
+                    </p:column>
+                 
+                 
+                   <p:column headerText="Sub-Total (Q.)">
+                        <h:outputText value="#{productoAsignado.cantidad * productoAsignado.precio}" />
+                    </p:column>
+                    
+
+                   
+                 
+                    <p:column headerText="Eliminar">
+                        <h:form> 
+                                <p:commandLink value="Eliminar" 
+                                               actionListener="#{productoAsignadoController.desactivar(productoAsignado)}"  
+                                               update="tabla_productoAsignado" />
+                        </h:form>
+                    </p:column>
+
+                    
+                </p:dataTable>
+                
+             
                 
                 
             </ui:define>

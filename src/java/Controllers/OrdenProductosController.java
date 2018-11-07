@@ -21,15 +21,21 @@ import javax.faces.context.FacesContext;
 public class OrdenProductosController  implements Serializable{    
     
     Orden orden = new Orden();
+    private String cliente;
+    private String fecha;
+    private String descripcion;
     private List<Orden> listaProductos;
     OrdenCAD ordenCAD =  new OrdenCAD();
+    ClienteCAD clienteCAD =  new ClienteCAD();
     
     @PostConstruct
     public void init(){
-        System.out.println("ORDEN");
-        System.out.println(ControlID.ordenId);
+        
         try {
-            this.orden =  ordenCAD.getOrdenID(ControlID.ordenId);
+            orden =  ordenCAD.getOrdenID(ControlID.ordenId);
+            cliente = clienteCAD.getComercioCliente(Integer.parseInt(orden.cliente));
+            fecha = Utils.Herramientas.dateAString(orden.fecha);
+            descripcion = orden.descripcion;
             
         } catch (Exception ex) {
             System.out.println("Error al obtener ordenes");
@@ -37,11 +43,35 @@ public class OrdenProductosController  implements Serializable{
         
     }
     
-    public void setOrden(Orden orden) {
-        this.orden = orden;
+    public Orden leerIDOrden(int id) {
+        try {
+            this.orden = ordenCAD.getOrdenID(id);
+            
+        } catch (Exception ex) {
+            System.out.println("Error al obtener orden por ID");
+        }
+        return this.orden;
     }
-
+  
     public Orden getOrden() {
         return orden;
     }
+    
+  
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+   
+    
+    
 }

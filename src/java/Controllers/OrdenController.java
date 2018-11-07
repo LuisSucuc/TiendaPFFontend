@@ -35,7 +35,6 @@ public class OrdenController  implements Serializable{
     }
     
     
-    
     private Map<String,String> opcionesClientes = new HashMap<String, String>();
     
     @PostConstruct

@@ -95,11 +95,8 @@ public class ProductoController  implements Serializable{
     
     
     public void nuevasUnidades() throws Exception{
-        System.out.println("NUEVA CANTIDAD");
-        System.out.println(nuevaCantidad);
         productoCAD.actualizarUnidades(producto.getId(), nuevaCantidad);
         nuevaCantidad = 0;
-        System.out.println(nuevaCantidad);
         listar();
         
     }
