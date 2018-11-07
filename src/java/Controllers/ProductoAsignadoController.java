@@ -49,6 +49,7 @@ public class ProductoAsignadoController  implements Serializable{
     
     public void listar(){
         try {
+            opcionesProductos = productoCAD.getProductosSeleccionables(ControlID.ordenId);
             this.listaProductoAsignados = productoAsignadoCAD.getTodos(ControlID.ordenId);
             this.total = 0;
             for(ProductoAsignado asignado: this.listaProductoAsignados){

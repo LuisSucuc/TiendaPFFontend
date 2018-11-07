@@ -1,13 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"   >
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
-        <h:link value="Cliente" outcome="/Views/productos"/>
+        <h:form id="form_login">
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <p:panel id="panel" header="Bienvenido">
+                
+            <h:panelGrid columns="3" id="panel_login">
+                
+                
+                <p:outputLabel for="usuario" value="Usuario:"/>
+                <p:inputText id="usuario" value="#{loginController.usuario.usuario}" required="true">
+                    <f:validateLength minimum="3" />
+                    <p:ajax update="msgUsuario" event="keyup" />
+                </p:inputText>
+
+                <p:message for="usuario" id="msgUsuario" display="icon" />
+
+
+
+                <p:outputLabel value="Contraseña:" for="contrasena"/>
+                <p:password value="#{loginController.usuario.contrasena}" required="true" id="contrasena">
+                    <f:validateLength minimum="2" />
+                    <p:ajax update="msgContrasena" event="keyup" />
+                </p:password>
+
+                <p:message for="contrasena" id="msgContrasena" display="icon" />
+
+
+                <p:commandButton value="Login" action="#{loginController.validarUsuario()}" 
+                                 icon="ui-icon-check" update="form_login"/>
+            </h:panelGrid>
+                </p:panel>
+        </h:form>
     </h:body>
 </html>
 

@@ -71,7 +71,7 @@
                         <p:commandButton value="Crear" update="tabla_prod dialogCrear" 
                                          actionListener="#{productoController.nuevoProducto()}" 
                                          icon="ui-icon-check" 
-                                         oncomplete="PF('dialogCrear').hide()"  /> 
+                                         onsuccess="PF('dialogCrear').hide()"  /> 
                         
                     </h:form>
                 </p:dialog>

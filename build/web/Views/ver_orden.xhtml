@@ -37,7 +37,7 @@
 
                             <p:outputLabel for="cantidad" value="Cantidad:" />
                             <p:inputText id="cantidad" value="#{productoAsignadoController.productoAsignado.cantidad}" label="Cantidad" required="true">
-                                <f:validateLength minimum="1" />
+                                <f:validateDoubleRange minimum="1" />
                                 <p:ajax update="msgCantidad" event="keyup" />
                             </p:inputText>
 
@@ -138,7 +138,7 @@
 
                             <p:message for="cantidad2" id="msgCantidad2" display="icon" />
 
-                              <p:commandButton value="Modificar" update="tabla_productoAsignado growl2" 
+                              <p:commandButton value="Modificar" update="tabla_productoAsignado growl2 dialogCrear" 
                                          actionListener="#{productoAsignadoController.modificar() }"
                                          oncomplete="PF('dialogModificar').hide()"
                                          icon="ui-icon-check"/> 
