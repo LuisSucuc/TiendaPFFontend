@@ -9,37 +9,53 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form id="form_login">
-            <p:growl id="growl" showDetail="true" sticky="true" /> 
-            <p:panel id="panel" header="Bienvenido">
+        
+        <center>
+        <img src="resources/1.png" style="margin-top: 100px" />
+        </center>
+        <div class="ui-g">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4">
                 
-            <h:panelGrid columns="3" id="panel_login">
+                <h:form id="form_login" style="margin-bottom:  100px">
+                    <p:growl id="growl" showDetail="true" sticky="true" /> 
+                    <p:panel id="panel" header="Bienvenido">
+
+                    <h:panelGrid columns="3" id="panel_login" style="text-align: center">
+
+
+                        <p:outputLabel for="usuario" value="Usuario:"/>
+                        <p:inputText id="usuario" value="#{loginController.usuario.usuario}" required="true">
+                            <f:validateLength minimum="3" />
+                            <p:ajax update="msgUsuario" event="keyup" />
+                        </p:inputText>
+
+                        <p:message for="usuario" id="msgUsuario" display="icon" />
+
+
+
+                        <p:outputLabel value="Contraseña:" for="contrasena"/>
+                        <p:password value="#{loginController.usuario.contrasena}" required="true" id="contrasena">
+                            <f:validateLength minimum="2" />
+                            <p:ajax update="msgContrasena" event="keyup" />
+                        </p:password>
+
+                        <p:message for="contrasena" id="msgContrasena" display="icon" />
+
+                        <p:outputLabel value="" for=""/>
+                        <p:commandButton value="Login" action="#{loginController.validarUsuario()}" 
+                                         icon="ui-icon-check" update="form_login"/>
+                    </h:panelGrid>
+                        </p:panel>
+                </h:form>
+                <br/>
+                <br/>
+                <br/><br />
                 
-                
-                <p:outputLabel for="usuario" value="Usuario:"/>
-                <p:inputText id="usuario" value="#{loginController.usuario.usuario}" required="true">
-                    <f:validateLength minimum="3" />
-                    <p:ajax update="msgUsuario" event="keyup" />
-                </p:inputText>
-
-                <p:message for="usuario" id="msgUsuario" display="icon" />
-
-
-
-                <p:outputLabel value="Contraseña:" for="contrasena"/>
-                <p:password value="#{loginController.usuario.contrasena}" required="true" id="contrasena">
-                    <f:validateLength minimum="2" />
-                    <p:ajax update="msgContrasena" event="keyup" />
-                </p:password>
-
-                <p:message for="contrasena" id="msgContrasena" display="icon" />
-
-
-                <p:commandButton value="Login" action="#{loginController.validarUsuario()}" 
-                                 icon="ui-icon-check" update="form_login"/>
-            </h:panelGrid>
-                </p:panel>
-        </h:form>
+            </div>
+            <div class="ui-g-4"></div>
+        </div>
+        
     </h:body>
 </html>
 

@@ -8,18 +8,14 @@
 
     <body>
 
-        <ui:composition template="./../Templates/template.xhtml">
+        <ui:composition template="./../Templates/template2.xhtml">
 
             <ui:define name="content">
-                <h1>Productos</h1>
-                <br/>
-                <h:form>
-                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
-                </h:form>
-                <br/>
+                <h1 class="text-center">Productos</h1>
+                
 
                 <!-- NUEVO PRODUCTO -->
-                <p:dialog header="Nuevo producto" widgetVar="dialogCrear" id="dialogCrear" >
+                <p:dialog header="Nuevo producto" widgetVar="dialogCrear" id="dialogCrear" modal="true"  >
                     <h:form>
 
                         <p:messages id="msgs" />
@@ -116,7 +112,8 @@
                         <h:form> 
                                 <p:commandLink value="Modificar" 
                                                actionListener="#{productoController.leerIDProducto(prod.id)}"
-                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" />
+                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar"
+                                               class="ui-icon ui-icon-circle-zoomout"/>
                         </h:form>
                     </p:column>
                     
@@ -124,7 +121,8 @@
                         <h:form> 
                                 <p:commandLink value="Desactivar" 
                                                actionListener="#{productoController.desactivar(prod.id)}"  
-                                               update="tabla_prod" />
+                                               update="tabla_prod"
+                                               class="ui-icon ui-icon-circle-close"/>
                         </h:form>
                     </p:column>
                     
@@ -133,14 +131,15 @@
                         <h:form> 
                                 <p:commandLink value="Anadir" 
                                                actionListener="#{productoController.leerIDProducto(prod.id)}"  
-                                               oncomplete="PF('dialogUnidades').show()" update="dialogUnidades" />
+                                               oncomplete="PF('dialogUnidades').show()" update="dialogUnidades"
+                                               class="ui-icon ui-icon-circle-plus"/>
                         </h:form>
                     </p:column>
                     
                 </p:dataTable>
                 
                 <!-- MODIFICAR -->
-                <p:dialog header="Modificar" widgetVar="dialogModificar" id="dialogModificar" >
+                <p:dialog header="Modificar" widgetVar="dialogModificar" id="dialogModificar" modal="true" >
                      <h:form>
                     
 
@@ -205,7 +204,7 @@
                 
                 
                  <!-- NUEVAS UNIDADES -->
-                <p:dialog header="Añadir unidades" widgetVar="dialogUnidades" id="dialogUnidades" >
+                 <p:dialog header="Añadir unidades" widgetVar="dialogUnidades" id="dialogUnidades" modal="true">
                      <h:form>
                     
                         <p:messages id="msgs3"  autoUpdate="true"/>
@@ -231,6 +230,14 @@
                 </h:form>
 
                 </p:dialog>
+                 
+                 <center>
+                     <br/>
+                         
+                    <h:form>
+                       <p:commandButton value="Añadir producto" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  class="bnt btn-default" />
+                   </h:form>
+                 </center>
                 
             </ui:define>
 

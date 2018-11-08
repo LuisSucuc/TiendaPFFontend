@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+
+       
+        <div>
+            <div id="left">
+                <img src="../resources/1.png" style="width:100%; margin-top: 20px;margin-bottom: 20px" />
+                
+                <ui:insert name="left">
+                    <h:form>
+                    <p:panelMenu style="width:100%">
+                        <p:submenu label="Menú" >
+                            <p:menuitem value="Productos" url="/faces/Views/productos.xhtml" icon="ui-icon-star" class="list-group-item" />
+                            <p:menuitem value="Productos desactivados" url="/faces/Views/producto_inactivo.xhtml" icon="ui-icon-close" class="list-group-item" />
+                            <p:menuitem value="Clientes" url="/faces/Views/clientes.xhtml" icon="ui-icon-star" class="list-group-item" />
+                            <p:menuitem value="Clientes desactivados" url="/faces/Views/clientes_inactivos.xhtml" icon="ui-icon-close" class="list-group-item" />
+                            <p:menuitem value="Ordenes" url="/faces/Views/ordenes.xhtml" icon="ui-icon-star" class="list-group-item" />
+                            <p:menuitem value="Ordenes Completadas" url="/faces/Views/ordenes_completadas.xhtml" icon="ui-icon-check" class="list-group-item" />
+                                
+                        </p:submenu>
+                    </p:panelMenu>
+                    </h:form>
+                </ui:insert>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <footer>
+                    <p>© 2016  <strong> Deposito Curruchiche</strong>, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+                  </footer>
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

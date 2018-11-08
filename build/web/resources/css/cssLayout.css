@@ -1,22 +1,30 @@
 
+#content{
+    background-color: #ffffff;
+}
+
 #top {
     position: relative;
-    background-color: #036fab;
+    background-color: #ffffff;
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
+    text-align: center;
 }
 
 #bottom {
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     background-color: #c2dfef;
     padding: 5px;
     margin: 10px 0px 0px 0px;
+    text-align: center;
 }
 
 #left {
     float: left;
-    background-color: #ece3a5;
+    background-color: #ffffff;
     padding: 5px;
     width: 150px;
 }
@@ -30,7 +38,7 @@
 
 .center_content {
     position: relative;
-    background-color: fff;
+    background-color: #ffffff;
     padding: 5px;
 }
 
