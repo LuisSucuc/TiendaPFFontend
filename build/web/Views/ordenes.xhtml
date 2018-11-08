@@ -13,11 +13,8 @@
             <ui:define name="content">
                 
                 
-                <h1 class="text-center">Ordenes</h1>
+                <h1 class="text-center text-primary">Ordenes</h1>
                 <br/>
-                <h:form>
-                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
-                </h:form>
                 <br/>
                 
                 
@@ -181,7 +178,12 @@
                         
                     </h:form>
                 </p:dialog>
-              
+                 <center>
+                     <br/>
+                    <h:form>
+                        <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                    </h:form>
+                </center>
                 
             </ui:define>
 

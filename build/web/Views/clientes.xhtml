@@ -11,11 +11,8 @@
         <ui:composition template="./../Templates/template2.xhtml">
 
             <ui:define name="content">
-                <h1 class="text-center">Clientes</h1>
+                <h1 class="text-center text-primary">Clientes</h1>
                 <br/>
-                <h:form>
-                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
-                </h:form>
                 <br/>
 
                 <!-- NUEVO PRODUCTO -->
@@ -161,8 +158,12 @@
                 </h:form>
 
                 </p:dialog>
-                
-                
+                <center>
+                    <h:form>
+                        <br/>
+                        <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                    </h:form>
+                    </center>
             </ui:define>
 
         </ui:composition>
