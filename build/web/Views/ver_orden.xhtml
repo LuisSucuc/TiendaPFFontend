@@ -11,12 +11,8 @@
         <ui:composition template="./../Templates/template2.xhtml">
 
             <ui:define name="content">
-                <h1 class="text-center">Detalle de orden</h1>
-                <br/>
-                <h:form>
-                    <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  rendered="#{productoAsignadoController.autorizarEdit()}" />
-                </h:form>
-                <br/>
+                <h1 class="text-center text-primary">Productos asignados a Orden</h1>
+
                 
                 <!-- NUEVO PRODUCTO -->
                 <p:dialog header="Asignar producto" widgetVar="dialogCrear" id="dialogCrear"  modal="true" showEffect="fold">
@@ -55,28 +51,11 @@
                     </h:form>
                 </p:dialog>
              
-                 
-            <table>
-              <tr>
-                <th>Cliente</th>
-                <th></th>
-                <th>Fecha</th>
-                <th></th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>#{ordenProductoController.cliente}</td>
-                <td></td>
-                <td>#{ordenProductoController.fecha}</td>
-                <td></td>
-                <td>#{ordenProductoController.descripcion}</td>
-              </tr>
-            </table>
-                
-               
-             
-             
-             
+                <h3>Cliente: <small>#{ordenProductoController.cliente}</small> </h3>
+                <h3>Fecha <small>#{ordenProductoController.fecha}</small> </h3>
+                <h3>Descripción <small>#{ordenProductoController.descripcion}</small> </h3>
+
+                       
                 <p:dataTable id="tabla_productoAsignado" var="productoAsignado" value="#{productoAsignadoController.listaProductoAsignados}">
                     
                     <p:column headerText="Producto">
@@ -102,7 +81,8 @@
                         <h:form>
                                 <p:commandLink value="Modificar" 
                                                actionListener="#{productoAsignadoController.leerIDProductoAsignado(productoAsignado.id)}"
-                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" />
+                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" 
+                                               class="ui-icon ui-icon-circle-zoomout"/>
                         </h:form>
                     </p:column>
 
@@ -111,7 +91,8 @@
                         <h:form> 
                                 <p:commandLink value="Eliminar" 
                                                actionListener="#{productoAsignadoController.desactivar(productoAsignado)}"  
-                                               update="tabla_productoAsignado" />
+                                               update="tabla_productoAsignado" 
+                                               class="ui-icon ui-icon-trash"/>
                         </h:form>
                     </p:column>
                     
@@ -150,6 +131,12 @@
                     </h:form>
                 </p:dialog>
                 
+                <center>
+                    <h:form>
+                        <br/>
+                        <p:commandButton value="Añadir producto" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  rendered="#{productoAsignadoController.autorizarEdit()}" />
+                    </h:form>
+                </center>
             </ui:define>
 
         </ui:composition>

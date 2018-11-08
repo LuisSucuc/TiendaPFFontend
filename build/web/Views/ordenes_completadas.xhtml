@@ -44,7 +44,8 @@
                     <p:column headerText="Detalles">
                         <h:form> 
                                 <p:commandLink value="Detalles"
-                                               actionListener="#{ordenController.redirect(orden,false)}"/>
+                                               actionListener="#{ordenController.redirect(orden,false)}"
+                                               class="ui-icon ui-icon-folder-open"/>
                         </h:form>
                     </p:column>
                     
@@ -52,7 +53,8 @@
                         <h:form> 
                                 <p:commandLink value="Eliminar" 
                                                actionListener="#{ordenController.eliminar(orden.id)}"  
-                                               update="tabla_orden" />
+                                               update="tabla_orden" 
+                                               class="ui-icon ui-icon-trash"/>
                         </h:form>
                     </p:column>
                     

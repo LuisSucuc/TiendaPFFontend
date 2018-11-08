@@ -13,7 +13,7 @@
             <ui:define name="content">
                 
                 
-                <h1 class="text-center text-primary">Ordenes</h1>
+                <h1 class="text-center text-primary">Mis ordenes</h1>
                 <br/>
                 <br/>
                 
@@ -92,7 +92,8 @@
                         <h:form> 
                                 <p:commandLink value="Modificar" 
                                                actionListener="#{ordenController.leerIDOrden(orden.id)}"
-                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" />
+                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" 
+                                               class="ui-icon ui-icon-circle-zoomout"/>
                         </h:form>
                     </p:column>
                     
@@ -101,7 +102,8 @@
                     <p:column headerText="Detalles">
                         <h:form> 
                                 <p:commandLink value="Detalles"
-                                               actionListener="#{ordenController.redirect(orden,true)}"/>
+                                               actionListener="#{ordenController.redirect(orden,true)}"
+                                               class="ui-icon ui-icon-folder-open"/>
                         </h:form>
                     </p:column>
                     
@@ -109,7 +111,8 @@
                         <h:form> 
                                 <p:commandLink value="Orden Completada" 
                                                actionListener="#{ordenController.desactivar(orden.id)}"  
-                                               update="tabla_orden" />
+                                               update="tabla_orden" 
+                                               class="ui-icon ui-icon-check"/>
                         </h:form>
                     </p:column>
                     
@@ -118,7 +121,8 @@
                         <h:form> 
                                 <p:commandLink value="Eliminar" 
                                                actionListener="#{ordenController.eliminar(orden.id)}"  
-                                               update="tabla_orden" />
+                                               update="tabla_orden"
+                                               class="ui-icon ui-icon-trash"/>
                         </h:form>
                     </p:column>
                     
@@ -181,7 +185,7 @@
                  <center>
                      <br/>
                     <h:form>
-                        <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                        <p:commandButton value="Añadir orden" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
                     </h:form>
                 </center>
                 

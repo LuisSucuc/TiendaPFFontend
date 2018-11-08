@@ -11,7 +11,7 @@
         <ui:composition template="./../Templates/template2.xhtml">
 
             <ui:define name="content">
-                <h1 class="text-center">Clientes Inactivos</h1>
+                <h1 class="text-center text-primary"> Mis clientes inactivos</h1>
                 <br/>
                 
 
@@ -19,19 +19,19 @@
                 
              
                 <p:dataTable id="tabla_cliente" var="cliente" value="#{clientesInactivosController.listaClientes}">
-                    <p:column headerText="Identificador">
-                        <h:outputText value="COD-#{cliente.id}" />
+                    <p:column headerText="Código">
+                        <h:outputText value="CLI-#{cliente.id}" />
                     </p:column>
                     
                     <p:column headerText="Comercio">
                         <h:outputText value="#{cliente.comercio}" />
                     </p:column>
                     
-                    <p:column headerText="Telefono disponible">
+                    <p:column headerText="Telefono">
                         <h:outputText value="#{cliente.telefono}" />
                     </p:column>                 
 
-                    <p:column headerText="Direccion (Q.)">
+                    <p:column headerText="Direccion">
                         <h:outputText value="#{cliente.direccion}" />
                     </p:column>
                     
@@ -40,7 +40,8 @@
                         <h:form> 
                                 <p:commandLink value="Activar" 
                                                actionListener="#{clientesInactivosController.activar(cliente.id)}"  
-                                               update="tabla_cliente" />
+                                               update="tabla_cliente" 
+                                               class="ui-icon ui-icon-check"/>
                         </h:form>
                     </p:column>
                         

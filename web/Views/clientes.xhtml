@@ -11,7 +11,7 @@
         <ui:composition template="./../Templates/template2.xhtml">
 
             <ui:define name="content">
-                <h1 class="text-center text-primary">Clientes</h1>
+                <h1 class="text-center text-primary"> Mis clientes</h1>
                 <br/>
                 <br/>
 
@@ -67,19 +67,19 @@
                 
              
                 <p:dataTable id="tabla_cliente" var="cliente" value="#{clienteController.listaClientes}">
-                    <p:column headerText="Identificador">
-                        <h:outputText value="COD-#{cliente.id}" />
+                    <p:column headerText="Código">
+                        <h:outputText value="CLI-#{cliente.id}" />
                     </p:column>
                     
                     <p:column headerText="Comercio">
                         <h:outputText value="#{cliente.comercio}" />
                     </p:column>
                     
-                    <p:column headerText="Telefono disponible">
+                    <p:column headerText="Telefono">
                         <h:outputText value="#{cliente.telefono}" />
                     </p:column>                 
 
-                    <p:column headerText="Direccion (Q.)">
+                    <p:column headerText="Direccion">
                         <h:outputText value="#{cliente.direccion}" />
                     </p:column>
                     
@@ -89,7 +89,8 @@
                         <h:form> 
                                 <p:commandLink value="Modificar" 
                                                actionListener="#{clienteController.leerIDCliente(cliente.id)}"
-                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" />
+                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" 
+                                               class="ui-icon ui-icon-circle-zoomout"/>
                         </h:form>
                     </p:column>
                     
@@ -97,7 +98,8 @@
                         <h:form> 
                                 <p:commandLink value="Desactivar" 
                                                actionListener="#{clienteController.desactivar(cliente.id)}"  
-                                               update="tabla_cliente" />
+                                               update="tabla_cliente" 
+                                               class="ui-icon ui-icon-circle-close"/>
                         </h:form>
                     </p:column>
                     
@@ -161,7 +163,7 @@
                 <center>
                     <h:form>
                         <br/>
-                        <p:commandButton value="Nuevo elemento" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                        <p:commandButton value="Añadir cliente" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
                     </h:form>
                     </center>
             </ui:define>

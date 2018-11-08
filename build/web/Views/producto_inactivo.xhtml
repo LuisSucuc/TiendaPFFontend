@@ -11,21 +11,21 @@
         <ui:composition template="./../Templates/template2.xhtml">
 
             <ui:define name="content">
-                <h1 class="text-center">Productos Desactivados</h1>
+                <h1 class="text-center text-primary">Mis productos inactivos</h1>
                 <br/>
              
                 
              
                 <p:dataTable id="tabla_prod" var="prod" value="#{productoInactivoController.listaProductos}">
-                    <p:column headerText="Identificador">
-                        <h:outputText value="COD-#{prod.id}" />
+                    <p:column headerText="Código">
+                        <h:outputText value="PROD-#{prod.id}" />
                     </p:column>
                     
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Producto">
                         <h:outputText value="#{prod.nombre}" />
                     </p:column>
                     
-                    <p:column headerText="Cantidad disponible">
+                    <p:column headerText="Unidades disponibles">
                         <h:outputText value="#{prod.cantidad}" />
                     </p:column>                 
 
@@ -45,7 +45,7 @@
                         <h:outputText value="#{prod.precio * prod.cantidad}" />
                     </p:column>
                     
-                    <p:column headerText="Ganancia esperada (Q.)">
+                    <p:column headerText="Ganancia total (Q.)">
                         <h:outputText value="#{ (prod.precio_venta * prod.cantidad) - (prod.precio * prod.cantidad)}" />
                     </p:column>
                     
@@ -54,7 +54,8 @@
                         <h:form> 
                                 <p:commandLink value="Activar" 
                                                actionListener="#{productoInactivoController.activar(prod.id)}"  
-                                               update="tabla_prod" />
+                                               update="tabla_prod" 
+                                               class="ui-icon ui-icon-check"/>
                         </h:form>
                     </p:column>
                     
