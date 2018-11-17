@@ -107,6 +107,14 @@
                         </h:form>
                     </p:column>
                     
+                    <p:column headerText="Facturas">
+                        <h:form> 
+                                <p:commandLink value="Detalles"
+                                               actionListener="#{ordenController.redirect_factura(orden,true)}"
+                                               class="ui-icon ui-icon-note"/>
+                        </h:form>
+                    </p:column>
+                    
                     <p:column headerText="Completar">
                         <h:form> 
                                 <p:commandLink value="Orden Completada" 

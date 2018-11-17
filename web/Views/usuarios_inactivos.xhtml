@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"   >
+
+    <body>
+
+        <ui:composition template="./../Templates/template2.xhtml">
+
+            <ui:define name="content">
+                <h1 class="text-center text-primary"> Mis usuarios</h1>
+                <br/>
+                <br/>
+
+ 
+                
+             
+                <p:dataTable id="tabla_usuario" var="usuario" value="#{usuariosInactivosController.listaUsuarios}">
+                    <p:column headerText="Código">
+                        <h:outputText value="USU-#{usuario.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Usuario">
+                        <h:outputText value="#{usuario.usuario}" />
+                    </p:column>
+                    
+                    <p:column headerText="Contrasena">
+                        <h:outputText value="#{usuario.contrasena}" />
+                    </p:column>                 
+
+
+                    
+                    
+                    
+                
+                    
+                    <p:column headerText="Activar">
+                        <h:form> 
+                                <p:commandLink value="Desactivar" 
+                                               actionListener="#{usuariosInactivosController.activar(usuario.id)}"  
+                                               update="tabla_usuario" 
+                                               class="ui-icon ui-icon-check"/>
+                        </h:form>
+                    </p:column>
+                    
+                </p:dataTable>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

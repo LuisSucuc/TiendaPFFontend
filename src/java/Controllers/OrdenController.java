@@ -142,4 +142,10 @@ public class OrdenController  implements Serializable{
         ControlID.edit = autorizar;
         FacesContext.getCurrentInstance().getExternalContext().redirect("ver_orden.xhtml");
     }
+     
+       public void redirect_factura(Orden orden, boolean autorizar) throws IOException {
+        ControlID.ordenId = orden.id;
+        ControlID.edit = autorizar;
+        FacesContext.getCurrentInstance().getExternalContext().redirect("factura.xhtml");
+    }
 }

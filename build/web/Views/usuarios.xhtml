@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"   >
+
+    <body>
+
+        <ui:composition template="./../Templates/template2.xhtml">
+
+            <ui:define name="content">
+                <h1 class="text-center text-primary"> Mis usuarios</h1>
+                <br/>
+                <br/>
+
+                <!-- NUEVO PRODUCTO -->
+                <p:dialog header="Nuevo usuario" widgetVar="dialogCrear" id="dialogCrear" >
+                    <h:form>
+
+                        <p:messages id="msgs" />
+
+                        <h:panelGrid columns="3" cellpadding="8">
+
+                            <p:outputLabel for="usuario" value="Usuario:" />
+                            <p:inputText id="usuario" value="#{usuarioController.usuario.usuario}" required="true" label="Usuario">
+                                <f:validateLength minimum="4" />
+                                <p:ajax update="msgUsuario" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="usuario"  id="msgUsuario" display="icon" />
+
+
+
+                            <p:outputLabel for="contrasena" value="Contrasena:" />
+
+                            <p:inputText id="contrasena" value="#{usuarioController.usuario.contrasena}" label="Contrasena" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgContrasena" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="contrasena" id="msgContrasena" display="icon" />
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Crear" update="tabla_usuario dialogCrear" 
+                                         actionListener="#{usuarioController.nuevoUsuario()}" 
+                                         icon="ui-icon-check" 
+                                         oncomplete="PF('dialogCrear').hide()"  /> 
+                        
+                    </h:form>
+                </p:dialog>
+                
+                
+             
+                <p:dataTable id="tabla_usuario" var="usuario" value="#{usuarioController.listaUsuarios}">
+                    <p:column headerText="Código">
+                        <h:outputText value="USU-#{usuario.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Usuario">
+                        <h:outputText value="#{usuario.usuario}" />
+                    </p:column>
+                    
+                    <p:column headerText="Contrasena">
+                        <h:outputText value="#{usuario.contrasena}" />
+                    </p:column>                 
+
+
+                    
+                    
+                    
+                    <p:column headerText="Modificar">
+                        <h:form> 
+                                <p:commandLink value="Modificar" 
+                                               actionListener="#{usuarioController.leerIDUsuario(usuario.id)}"
+                                               oncomplete="PF('dialogModificar').show()" update="dialogModificar" 
+                                               class="ui-icon ui-icon-circle-zoomout"/>
+                        </h:form>
+                    </p:column>
+                    
+                    <p:column headerText="Desactivar">
+                        <h:form> 
+                                <p:commandLink value="Desactivar" 
+                                               actionListener="#{usuarioController.desactivar(usuario.id)}"  
+                                               update="tabla_usuario" 
+                                               class="ui-icon ui-icon-circle-close"/>
+                        </h:form>
+                    </p:column>
+                    
+                    
+
+                    
+                </p:dataTable>
+                
+                <!-- MODIFICAR -->
+                <p:dialog header="Modificar" widgetVar="dialogModificar" id="dialogModificar" >
+                     <h:form>
+                    
+
+                        
+                        <p:messages id="msgs2"  autoUpdate="true"/>
+                        <h:panelGrid columns="3" cellpadding="8">                            
+                            
+                            
+                            <p:outputLabel for="usuario2" value="Usuario:" />
+                            
+                            <p:inputText id="usuario2" value="#{usuarioController.usuario.usuario}" required="true" label="Usuario2">
+                                <f:validateLength minimum="4" />
+                                <p:ajax update="msgUsuario2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="usuario2"  id="msgUsuario2" display="icon" />
+
+
+
+                            <p:outputLabel for="contrasena2" value="Contrasena:" />
+
+                            <p:inputText id="contrasena2" value="#{usuarioController.usuario.contrasena}" label="Contrasena2" required="true">
+                                <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                                <p:ajax update="msgContrasena2" event="keyup" />
+                            </p:inputText>
+
+                            <p:message for="contrasena2" id="msgContrasena2" display="icon" />
+
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Guardar" update="tabla_usuario " 
+                                         actionListener="#{usuarioController.modificar()}" 
+                                         icon="ui-icon-check" 
+                                         oncomplete="PF('dialogModificar').hide()"/>
+                    
+                </h:form>
+
+                </p:dialog>
+                <center>
+                    <h:form>
+                        <br/>
+                        <p:commandButton value="Añadir usuario" oncomplete="PF('dialogCrear').show()" icon="ui-icon-plus"  />
+                    </h:form>
+                    </center>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
